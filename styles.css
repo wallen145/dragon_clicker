@@ -8,12 +8,18 @@
   color: royalblue;
 }
 
-.button-container {
+#button-collection {
   display: flex;
   flex-direction: column;
   width: 250px;
   height: 150px;
   margin: auto;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 }
 .click-output {
   display: flex-item;
