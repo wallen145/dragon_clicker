@@ -3,9 +3,65 @@
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  font-size: 20px;
+  font-size: 25px;
   font-weight: bold;
   color: royalblue;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.earthDragon {
+  margin: auto;
+  filter: hue-rotate(60deg) brightness(80%) drop-shadow(10px 0px 8px #633a47);
+  width: 100px;
+}
+
+.windDragon {
+  margin: auto;
+  filter: hue-rotate(120deg) brightness(70%) drop-shadow(10px 0px 8px #71717c);
+  width: 100px;
+}
+
+.fireDragon {
+  margin: auto;
+  filter: hue-rotate(180deg) brightness(60%) drop-shadow(10px 0px 8px #c4aa39);
+  width: 100px;
+}
+
+.waterDragon {
+  margin: auto;
+  filter: hue-rotate(240deg) brightness(50%) drop-shadow(10px 0px 8px #1f3752);
+  width: 100px;
+}
+
+.forestDragon {
+  margin-left: auto;
+  filter: hue-rotate(300deg) brightness(40%) drop-shadow(10px 0px 8px #0a794b);
+  width: 100px;
+}
+
+.click-output {
+  display: flex-item;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+nav {
+  border: 5px solid #633a47;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  background-color: coral;
+}
+
+nav button {
 }
 
 #button-collection {
@@ -16,18 +72,6 @@
   margin: auto;
 }
 
-.button-container {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-}
-.click-output {
-  display: flex-item;
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-}
-
 body {
   background-color: navajowhite;
 }
@@ -35,6 +79,14 @@ img {
   width: auto;
   height: auto;
 }
+
+ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  list-style-type: none;
+}
+
 #click-me {
   display: block;
 }
