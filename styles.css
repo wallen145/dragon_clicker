@@ -1,18 +1,11 @@
-.centered-text {
+.centered_text {
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: bold;
   color: royalblue;
-}
-
-.button-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  text-align: center;
 }
 
 .earthDragon {
@@ -40,12 +33,12 @@
 }
 
 .forestDragon {
-  margin-left: auto;
+  margin: auto;
   filter: hue-rotate(300deg) brightness(40%) drop-shadow(10px 0px 8px #0a794b);
   width: 100px;
 }
 
-.click-output {
+output {
   display: flex-item;
   font-size: 24px;
   font-weight: bold;
@@ -53,28 +46,46 @@
 }
 
 nav {
-  border: 5px solid #633a47;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-evenly;
   background-color: coral;
+  margin: 0;
+  width: 100vw;
+  height: 10vh;
 }
 
-nav button {
-}
-
-#button-collection {
+#button_collection {
   display: flex;
   flex-direction: column;
+  width: 100vw;
+  height: 90vh;
+  justify-content: center;
+  align-content: center;
+}
+
+#button_container {
+  text-align: center;
   width: 250px;
-  height: 150px;
-  margin: auto;
+  height: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20vh;
+  margin-bottom: auto;
+}
+
+button {
+  width: 200px;
+  text-align: center;
+  margin: 0 auto;
 }
 
 body {
-  background-color: navajowhite;
+  margin: 0;
+  padding: 0;
 }
+
 img {
   width: auto;
   height: auto;
@@ -87,6 +98,13 @@ ul {
   list-style-type: none;
 }
 
-#click-me {
+#click_me {
   display: block;
+  text-align: center;
+}
+
+#click_message {
+  margin: auto;
+  text-align: center;
+  justify-content: center;
 }
