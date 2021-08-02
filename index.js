@@ -1,92 +1,245 @@
-var dragon_img = "./images/dragon-154565_1280.png"
-var click_target_id;
-var dragons = [{
-        id: 1,
-        type: 'Earth',
-        class_name: 'earthDragon',
-        clicks: 0,
-        background: "#BFFCC6"
-    },
-    {
-        id: 2,
-        type: 'Wind',
-        class_name: 'windDragon',
-        clicks: 0,
-        background: "#CBDFFD"
-    },
-    {
-        id: 3,
-        type: 'Fire',
-        class_name: 'fireDragon',
-        clicks: 0,
-        background: "#F3FFE3"
-    },
-    {
-        id: 4,
-        type: 'Water',
-        class_name: 'waterDragon',
-        clicks: 0,
-        background: "#E7FFAC"
-    },
-    {
-        id: 5,
-        type: 'Forest',
-        class_name: 'forestDragon',
-        clicks: 0,
-        background: "#FFFFD1"
-    },
-];
+class Model {
+    constructor() {
 
-var navBar = document.getElementById("navBar");
-var visibleDragon;
+            this.lastDragonTypeSelected = ""
 
-function drawMenuItem(id) {
-    console.log(dragons[id].type);
-    let unorderedList = document.createElement("ul");
-    let listItem = document.createElement("li");
-    listItem.setAttribute('id', dragons[id].type);
-    listItem.setAttribute('value', dragons[id].type);
-    listItem.innerHTML = '<font size="18px">' + dragons[id].type; + '</font>';
-    listItem.addEventListener('click', function(e) {
-        dragonDisplay(id);
-    });
-    unorderedList.appendChild(listItem);
-    navBar.appendChild(unorderedList);
+            this.dragonTypeList = [
+                'Earth',
+                'Wind',
+                'Fire',
+                'Water',
+                'Forest',
+                'All'
+            ];
+
+            this.dragons = [{
+                    id: 1,
+                    dragonType: 'Earth',
+                    class_name: 'earthDragon',
+                    clicks: 0,
+                    background: "#BFFCC6"
+                },
+                {
+                    id: 2,
+                    dragonType: 'Wind',
+                    class_name: 'windDragon',
+                    clicks: 0,
+                    background: "#CBDFFD"
+                },
+                {
+                    id: 3,
+                    dragonType: 'Fire',
+                    class_name: 'fireDragon',
+                    clicks: 0,
+                    background: "#F3FFE3"
+                },
+                {
+                    id: 4,
+                    dragonType: 'Water',
+                    class_name: 'waterDragon',
+                    clicks: 0,
+                    background: "#E7FFAC"
+                },
+                {
+                    id: 5,
+                    dragonType: 'Forest',
+                    class_name: 'forestDragon',
+                    clicks: 0,
+                    background: "#FFFFD1"
+                },
+                {
+                    id: 6,
+                    dragonType: 'Forest',
+                    class_name: 'forestDragon',
+                    clicks: 0,
+                    background: "#FFFFD1"
+                },
+                {
+                id: 7,
+                dragonType: 'Earth',
+                class_name: 'earthDragon',
+                clicks: 0,
+                background: "#BFFCC6"
+                },
+            ];
+    }
+
+    getNavList() {
+        return this.dragonTypeList;
+    }
+
+    getDragonList() {
+        return this.dragons
+    }
+    
+    getDragonsByType(dragonType) {
+        let list = [];
+        if (dragonType === 'All') {
+            return (this.getNavList())
+        } else {        
+            for (let i = 0; i < this.dragons.length; i++) {
+                if (this.dragons[i].dragonType === dragonType) list.push(this.dragons[i]);    
+            }
+            console.log(list);
+            return list;
+        }
+    }
+
+    getDragon(id) { 
+        let targetDragon = this.dragons.filter((dragon) => dragon.id === id)
+        console.log('targetDragon', targetDragon)
+        return targetDragon
+    }
+
+    getDragonType(id) {
+        for (let i = 0; i < this.dragons.length; i++) {
+            if (this.dragons[i].id === id) {
+                return(this.dragons[i].dragonType);
+            }
+        } 
+       //let dragon = this.dragons.filter(dragon => dragon.id === id)
+        console.log('new log entry', dragon)
+        console.log('getDragonType on id:', dragon.dragonType)
+        return dragon.dragonType; 
+    }
+
+    deleteDragon(id) {
+        this.dragons = this.dragons.filter((dragon) => dragon.id !== id)
+    }
+
+    getClicks(id) {
+        let dragon = this.dragons.filter((dragon) => dragon.id === id) 
+        return dragon.clicks
+    }
+
+    incrementClicks(id) {
+        for (let i = 0; i < this.dragons.length; i++) {
+            if (this.dragons[i].id === id) {
+                this.dragons[i].clicks++
+                return(this.dragons[i].clicks)
+            }
+        }
+    }
+
 }
 
-for (var i = 0; i < dragons.length; i++) {
-    drawMenuItem(i);
+class Controller {
+    constructor(model, navBarView, dragonView) {
+        this.model = model
+        this.navBarView = navBarView
+        this.dragonView = dragonView
+    }
+
+    renderNavBar() {
+        let navList = this.model.getNavList()
+        console.log("this is the navList:", navList)
+        let navString = this.navBarView.renderNavBar(navList)
+        console.log('navString', navString)
+
+    }
+
+    dispatch(buttonClicked) {
+        this.model.lastDragonTypeSelected = buttonClicked
+        let dragonList = [];
+        console.log("inside dispatch")
+        if (buttonClicked === 'All') {
+            dragonList = this.model.getDragonList(buttonClicked)
+        } else {
+            dragonList = this.model.getDragonsByType(buttonClicked)
+        }
+        this.dragonView.render(dragonList)
+    }
+
+    incrementClicks(id) {
+        console.log('incrementClicks param id', id)
+        this.model.incrementClicks(id);
+        let dragonType = this.model.lastDragonTypeSelected
+        let list = [] 
+        if (dragonType === 'All') {
+            list = this.model.dragons
+        } else {
+            list = this.model.getDragonsByType(dragonType)    
+        }
+        this.dragonView.render(list);
+    }
+
+    getClicks(id) {
+        return(this.model.getClicks())
+    } 
 }
 
-function incrementCount(id) {
-    dragons[id].clicks += 1;
-    let output = document.querySelector("#click_count");
-    console.log(dragons[id].clicks);
-    output.innerHTML = `Click count: ${dragons[id].clicks}`;
+class NavBarView {
+    constructor(controller) {
+        this.controller = controller;
+    }
+    navBarViewFactory(list) {
+        console.log('navBarView list', list);
+        let html = ""
+        let htmlStart = "<ul>"
+        let  htmlEnd = "</ul>"
+        for (let i = 0; i < list.length; i++) {
+            html += `<li onclick='controller.dispatch("${list[i]}")'>${list[i]}</li>`
+        }
+        html = htmlStart + html + htmlEnd
+        console.log('navBarView html', html)
+        return(html)
+    }
+
+    renderNavBar(list) {
+        let html = this.navBarViewFactory(list)
+        let navbar = document.getElementById("navBar");
+        navbar.innerHTML = html;
+        return(navbar);
+    }
 }
 
-function dragonFactory(id) {
-    console.log(dragons[id].type);
-    let dragonHTML = `
-    <div id="button_collection" style="background-color: ${dragons[id].background}">
-      <div id="button_container">
-        <output class="centered_text">${dragons[id].type}</output>
-        <button id="click_me" onClick="incrementCount(${id})">
-          <img src="${dragon_img}" class="${dragons[id].class_name}" alt="Dragon image"/>
-        </button>
-        <output id="click_count" class="centered_text">Click count: ${dragons[id].clicks}</output>
-      </div>
-    </div>  
-  `
-    return (dragonHTML);
+// test model functions
+
+class DragonView {
+    constructor(controller) {
+        this.controller = controller;
+        this.dragon_img = "./images/dragon-154565_1280.png";
+    }
+
+    dragonFactory(dragon) {
+        console.log('dragonFactory', dragon.id, dragon)
+        let dragonHTML = `
+          <div id="button_container">
+            <output class="centered_text">Type: ${dragon.dragonType} ID: ${dragon.id}</output>
+            <button onclick="controller.incrementClicks(${dragon.id})">
+              <img src="${this.dragon_img}" class="${dragon.class_name}" alt="Dragon image"/>
+            </button>
+            <output id="click_count${dragon.id}" class="centered_text">Click count: ${dragon.clicks}</output>
+          </div> 
+      `
+        return (dragonHTML);
+    }
+
+    render(list) {
+        let dragon = {}
+        let html = `<div id="button_collection" style="background-color: ${dragon.background}">`
+
+        for (let i = 0; i < list.length; i++) {
+            dragon = list[i]
+            html += this.dragonFactory(dragon)         
+        }
+        html += "</div>"
+        attach_here.innerHTML = html; 
+    }
+
+    renderClicks(id) {
+        let output = document.querySelector(`"#click_count"${id}`)
+        output.innerHTML = `Click count: ${controller.getClicks(id)}`;    
+    }
+
+    getCount(id) {
+        dragons[id].clicks += 1;
+        let output = document.querySelector(`"#click_count"${id}`);
+        console.log(dragons[id].clicks);
+        output.innerHTML = `Click count: ${dragons[id].clicks}`;
+    }
 }
 
-function dragonDisplay(id) {
-    dragons[id].count = 0;
-    let attach_here = document.querySelector("#attach_here");
-    if (typeof collection !== 'undefined') {
-        collection.innerHTML = "";
-    }   
-    let dragon = dragonFactory(id)  
-    attach_here.innerHTML = dragon; 
-}
+var controller = new Controller(new Model(), new NavBarView(), new DragonView());
+ controller.renderNavBar();
+ controller.model.dragons;

@@ -39,7 +39,7 @@
 }
 
 output {
-  display: flex-item;
+  flex-item;
   font-size: 24px;
   font-weight: bold;
   text-align: center;
@@ -58,11 +58,13 @@ nav {
 
 #button_collection {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content:space-evenly;
   width: 100vw;
   height: 90vh;
+  margin-top: 10vh;
   justify-content: center;
-  align-content: center;
 }
 
 #button_container {
@@ -95,7 +97,13 @@ ul {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-between;
   list-style-type: none;
+}
+
+li {
+  font-size: 25px;
+  width: 100px;
 }
 
 #click_me {
