@@ -60,10 +60,9 @@ nav {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content:space-evenly;
+  justify-content: space-around;
   width: 100vw;
   height: 90vh;
-  margin-top: 10vh;
   justify-content: center;
 }
 
@@ -71,10 +70,7 @@ nav {
   text-align: center;
   width: 250px;
   height: 300px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 20vh;
-  margin-bottom: auto;
+  margin-top: 10vh;
 }
 
 button {

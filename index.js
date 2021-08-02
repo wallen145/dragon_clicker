@@ -73,33 +73,24 @@ class Model {
     }
     
     getDragonsByType(dragonType) {
-        let list = [];
         if (dragonType === 'All') {
             return (this.getNavList())
-        } else {        
+        } else {
+            let list = [];        
             for (let i = 0; i < this.dragons.length; i++) {
                 if (this.dragons[i].dragonType === dragonType) list.push(this.dragons[i]);    
             }
-            console.log(list);
             return list;
         }
     }
 
     getDragon(id) { 
         let targetDragon = this.dragons.filter((dragon) => dragon.id === id)
-        console.log('targetDragon', targetDragon)
         return targetDragon
     }
 
     getDragonType(id) {
-        for (let i = 0; i < this.dragons.length; i++) {
-            if (this.dragons[i].id === id) {
-                return(this.dragons[i].dragonType);
-            }
-        } 
-       //let dragon = this.dragons.filter(dragon => dragon.id === id)
-        console.log('new log entry', dragon)
-        console.log('getDragonType on id:', dragon.dragonType)
+        let dragon = this.dragons.filter(dragon => dragon.id === id)
         return dragon.dragonType; 
     }
 
@@ -132,26 +123,22 @@ class Controller {
 
     renderNavBar() {
         let navList = this.model.getNavList()
-        console.log("this is the navList:", navList)
         let navString = this.navBarView.renderNavBar(navList)
-        console.log('navString', navString)
 
     }
 
     dispatch(buttonClicked) {
         this.model.lastDragonTypeSelected = buttonClicked
         let dragonList = [];
-        console.log("inside dispatch")
         if (buttonClicked === 'All') {
             dragonList = this.model.getDragonList(buttonClicked)
         } else {
             dragonList = this.model.getDragonsByType(buttonClicked)
         }
-        this.dragonView.render(dragonList)
+        this.dragonView.render(dragonList, this.model.lastDragonTypeSelected)
     }
 
     incrementClicks(id) {
-        console.log('incrementClicks param id', id)
         this.model.incrementClicks(id);
         let dragonType = this.model.lastDragonTypeSelected
         let list = [] 
@@ -173,7 +160,6 @@ class NavBarView {
         this.controller = controller;
     }
     navBarViewFactory(list) {
-        console.log('navBarView list', list);
         let html = ""
         let htmlStart = "<ul>"
         let  htmlEnd = "</ul>"
@@ -181,7 +167,6 @@ class NavBarView {
             html += `<li onclick='controller.dispatch("${list[i]}")'>${list[i]}</li>`
         }
         html = htmlStart + html + htmlEnd
-        console.log('navBarView html', html)
         return(html)
     }
 
@@ -202,7 +187,6 @@ class DragonView {
     }
 
     dragonFactory(dragon) {
-        console.log('dragonFactory', dragon.id, dragon)
         let dragonHTML = `
           <div id="button_container">
             <output class="centered_text">Type: ${dragon.dragonType} ID: ${dragon.id}</output>
@@ -215,9 +199,12 @@ class DragonView {
         return (dragonHTML);
     }
 
-    render(list) {
+    render(list, lastSelected) {
         let dragon = {}
-        let html = `<div id="button_collection" style="background-color: ${dragon.background}">`
+        let background = "white"
+        if (list.length > 0 && lastSelected !== 'All') background = list[0].background
+        
+        let html = `<div id="button_collection" style="background-color:${background}">`
 
         for (let i = 0; i < list.length; i++) {
             dragon = list[i]
@@ -227,15 +214,9 @@ class DragonView {
         attach_here.innerHTML = html; 
     }
 
-    renderClicks(id) {
-        let output = document.querySelector(`"#click_count"${id}`)
-        output.innerHTML = `Click count: ${controller.getClicks(id)}`;    
-    }
-
     getCount(id) {
         dragons[id].clicks += 1;
         let output = document.querySelector(`"#click_count"${id}`);
-        console.log(dragons[id].clicks);
         output.innerHTML = `Click count: ${dragons[id].clicks}`;
     }
 }
