@@ -20,3 +20,21 @@ dragons could be display using the inner HTML of the container. I also moved the
 Using the array of objects as a basis for creating unique dragons seems to work well. Scaling just requires adding more dragon objects to the array. Using the array of objects combined with the dragonFactory resulted in very little code duplication.
 
 That said, getting the right quotes in the right places is a little tedious and error prone.
+
+## MVC
+
+Reimplemented dragon area solution following MVC conventions.
+
+The dragon type view was still implemented as a filter. Added an All dragon type to facilitate showing all existing dragon types at once.
+
+Adding new dragons types, and dragon instances involved editing the model
+
+## Modal version
+
+Separated javascript into separate files for model, view and controller.
+
+Menu bar reimplemented to allow dynamic creation of new dragons, based on user selected attributes through modal dialog box.
+Initial set of 5 dragons are provided.
+
+Dragon arena are now shows all dragons for all selected dragon types all the time. The 'All' button functionality was removed.
+Dragon cards now include a delete link.

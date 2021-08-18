@@ -6,11 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="shortcut icon" href="./images/JeffA.png" type="image/x-icon" />
   </head>
 
   <body>
-    <nav id="navBar"></nav>
-    <div id="attach_here"></div>
-    <script src="index.js"></script>
+    <div id="main">
+      <nav id="navBar"></nav>
+      <div id="attach_here"></div>
+      <div id="modal_dialog" class="modal-dialog">
+        <div id="modal_content" class="modal-content"></div>
+      </div>
+      <script src="./scripts/view.js" defer="defer"></script>
+      <script src="./scripts/model.js" defer="defer"></script>
+      <script src="./scripts/controller.js" defer="defer"></script>
+    </div>
   </body>
 </html>

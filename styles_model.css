@@ -1,0 +1,43 @@
+.modalMask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 300ms;
+}
+
+.modalOpacity {
+  opacity: 1;
+  display: flex;
+}
+
+.brandModel {
+  margin: 1.5rem;
+  background: #f0f0f0;
+  border-radius: 15px;
+  padding: 3rem;
+  font-size: 18px;
+  position: relative;
+  line-height: 2rem;
+}
+
+.close {
+  font-size: 24px;
+  line-height: 24px;
+  color: white;
+  background-color: #1d2559;
+  position: absolute;
+  right: -1rem
+  top: -1rem;
+  padding 1rem;
+  border-radius 35px;
+  cursor: pointer;
+  user-select: none;
+}
